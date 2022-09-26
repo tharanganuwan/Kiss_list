@@ -18,7 +18,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const ViewContactScreen(),
+      //home: const ViewContactScreen()
+      home: SpalshScrren(),
     );
   }
 }

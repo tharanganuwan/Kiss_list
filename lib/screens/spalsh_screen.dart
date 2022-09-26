@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kiss_list/screens/home_screen.dart';
+import 'package:kiss_list/utills/constants.dart';
 
 class SpalshScrren extends StatefulWidget {
   const SpalshScrren({Key? key}) : super(key: key);
@@ -41,7 +42,9 @@ class _SpalshScrrenState extends State<SpalshScrren> {
         ),
         child: Center(
           child: Container(
-            child: Text("Icon"),
+            child: Image.asset(
+              Constants.imageAssets('logo.png'),
+            ),
           ),
         ),
       ),

@@ -1,19 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:kiss_list/screens/edit_add_contct_screen.dart';
 import 'package:kiss_list/screens/home_screen.dart';
 import 'package:kiss_list/utills/constants.dart';
 import 'package:kiss_list/widget/widget.dart';
 
-class ViewContactScreen extends StatefulWidget {
-  const ViewContactScreen({Key? key}) : super(key: key);
+class EditAddContactScreen extends StatefulWidget {
+  const EditAddContactScreen({Key? key}) : super(key: key);
 
   @override
-  State<ViewContactScreen> createState() => _ViewContactScreenState();
+  State<EditAddContactScreen> createState() => _EditAddContactScreenState();
 }
 
-class _ViewContactScreenState extends State<ViewContactScreen> {
+class _EditAddContactScreenState extends State<EditAddContactScreen> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -47,6 +44,19 @@ class _ViewContactScreenState extends State<ViewContactScreen> {
                     ),
                   ),
                   Padding(
+                    padding: const EdgeInsets.only(top: 140),
+                    child: Center(
+                      child: ClipOval(
+                        child: Container(
+                          height: 60,
+                          width: 60,
+                          color: Colors.white,
+                          child: Icon(Icons.mode_edit_outlined),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Padding(
                     padding: const EdgeInsets.only(
                       top: 25,
                       left: 20,
@@ -57,34 +67,23 @@ class _ViewContactScreenState extends State<ViewContactScreen> {
                       children: [
                         GestureDetector(
                           onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const HomeScreen(),
-                              ),
-                            );
+                            // Navigator.push(
+                            //   context,
+                            //   MaterialPageRoute(
+                            //     builder: (context) => const HomeScreen(),
+                            //   ),
+                            // );
                           },
                           child: Icon(
-                            Icons.home_outlined,
+                            Icons.save_outlined,
                             color: Color.fromARGB(255, 0, 0, 0),
                             size: 35,
                           ),
                         ),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    const EditAddContactScreen(),
-                              ),
-                            );
-                          },
-                          child: Icon(
-                            Icons.mode_edit_outlined,
-                            color: Color.fromARGB(255, 0, 0, 0),
-                            size: 35,
-                          ),
+                        Icon(
+                          Icons.delete_outlined,
+                          color: Color.fromARGB(255, 0, 0, 0),
+                          size: 35,
                         ),
                       ],
                     ),
@@ -111,7 +110,7 @@ class _ViewContactScreenState extends State<ViewContactScreen> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             LeftContaner(
-                              text: "Gender : ",
+                              text: "Gender : ♂",
                               width: 200,
                             ),
                             SizedBox(width: 10),
@@ -125,26 +124,38 @@ class _ViewContactScreenState extends State<ViewContactScreen> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            LeftContaner(
-                              text: "10/02/2022",
-                              width: 200,
+                            SizedBox(),
+                            CenterContaner(
+                              text: "Add date",
+                              width: 180,
                             ),
                             RightContaner(
-                              text: "X/10",
-                              width: 95,
+                              text: "Add ratin",
+                              width: 145,
                             ),
                           ],
                         ),
                         SizedBox(height: 8),
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: LeftContaner(
-                            text: " Notices",
-                            height: 150,
-                            width: size.width - 20,
-                          ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            SizedBox(),
+                            LeftContaner(
+                              text: "Add Notices",
+                              height: 110,
+                              width: size.width - 150,
+                            ),
+                            RightContaner(
+                              height: 110,
+                              text: "Delete",
+                              width: 145,
+                            ),
+                          ],
                         ),
-                        SizedBox(height: 30),
+                        SizedBox(
+                          height: 8,
+                        ),
+                        CenterContaner(text: "Add Another", width: 300)
                       ],
                     ),
                   )
