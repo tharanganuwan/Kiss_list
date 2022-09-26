@@ -54,12 +54,76 @@ class _HomeScreenState extends State<HomeScreen> {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 height: 58,
-                width: double.infinity,
+                width: size.width,
                 decoration: BoxDecoration(
-                  color: Colors.red,
-                  borderRadius: BorderRadius.circular(5),
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(20),
                 ),
-                child: Align(alignment: Alignment.centerLeft, child: Text("a")),
+                child: Container(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SizedBox(),
+                      Text(
+                        "search",
+                        style: TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Icon(
+                        Icons.search,
+                        color: Colors.black,
+                        size: 35,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(height: 20),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                height: 300,
+                width: size.width,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Container(
+                  child: Column(
+                    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SizedBox(height: 20),
+                      Container(
+                        color: Colors.red,
+                        height: 200,
+                      ),
+                      SizedBox(height: 20),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "1",
+                            style: TextStyle(
+                              fontSize: 25,
+                            ),
+                          ),
+                          Text(
+                            "Name",
+                            style: TextStyle(
+                              fontSize: 25,
+                            ),
+                          ),
+                          Icon(
+                            Icons.male,
+                            color: Colors.black,
+                            size: 35,
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
               ),
             ],
           ),
