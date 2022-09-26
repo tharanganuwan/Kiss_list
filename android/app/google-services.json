@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "469118746874",
+    "project_id": "kiss-list-89374",
+    "storage_bucket": "kiss-list-89374.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:469118746874:android:44c9d3ca75ba4654568943",
+        "android_client_info": {
+          "package_name": "com.example.kiss_list"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "469118746874-qr78j3ir2r71pmekk7bkkihgh1079ap0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDkWqYMJGe-CcGND3Pjy25f-I-G_RMjd5s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "469118746874-qr78j3ir2r71pmekk7bkkihgh1079ap0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
