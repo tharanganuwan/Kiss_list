@@ -14,6 +14,9 @@ class ContactProvider extends ChangeNotifier {
   final ContactController _contactController = ContactController();
 //image picker
   final ImagePicker _picker = ImagePicker();
+
+  File _image = File("");
+
   var _isObscure = true;
   final _name = TextEditingController();
   final _gender = TextEditingController();
@@ -57,10 +60,6 @@ class ContactProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-//image file
-
-  File _image = File("");
-
   //get image file
   File get getImg => _image;
 
@@ -80,8 +79,16 @@ class ContactProvider extends ChangeNotifier {
     try {
       if (inputValidation()) {
         setLoading(true);
-        await _contactController.saveContactDetails(_name.text, _gender.text,
-            _age.text, _date.text, _notices.text, _about.text, _rating.text);
+        await _contactController.saveContactDetails(
+          _name.text,
+          _gender.text,
+          _age.text,
+          _date.text,
+          _notices.text,
+          _about.text,
+          _rating.text,
+          //_image,
+        );
         setLoading();
 
         // DialogBox().dialogBox(
@@ -125,15 +132,15 @@ class ContactProvider extends ChangeNotifier {
 
   // ///resturent details screen
   // //defining single resurent model
-  // late ContactModel _resturentModel;
+  late ContactModel _resturentModel;
   // //getter for res model
-  // ContactModel get singleRes => _resturentModel;
+  ContactModel get singleRes => _resturentModel;
 
   // //set the resturent model
-  // void setSingleRes(ContactModel model) {
-  //   _resturentModel = model;
-  //   notifyListeners();
-  // }
+  void setSingleRes(ContactModel model) {
+    _resturentModel = model;
+    notifyListeners();
+  }
 
   // //change loading state
   // void setLoading([bool val = false]) {

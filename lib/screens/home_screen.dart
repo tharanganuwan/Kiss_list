@@ -18,162 +18,165 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
-      body: Container(
-        width: size.width,
-        height: size.height,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Color.fromARGB(255, 36, 32, 32),
-              Color.fromARGB(255, 214, 81, 125),
-            ],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          ),
-        ),
+      body: SafeArea(
         child: Container(
-          padding: EdgeInsets.only(
-            top: 25,
-            left: 20,
-            right: 20,
+          width: size.width,
+          height: size.height,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Color.fromARGB(255, 36, 32, 32),
+                Color.fromARGB(255, 214, 81, 125),
+              ],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+            ),
           ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const EditAddContactScreen(),
-                        ),
-                      );
-                    },
-                    child: Icon(
-                      Icons.person_add_alt,
-                      color: Colors.white,
-                      size: 35,
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const Settings(),
-                        ),
-                      );
-                    },
-                    child: Icon(
-                      Icons.settings,
-                      color: Colors.white,
-                      size: 35,
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 20),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                height: 58,
-                width: size.width,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Container(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      SizedBox(),
-                      Text(
-                        "search",
-                        style: TextStyle(
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Icon(
-                        Icons.search,
-                        color: Colors.black,
+          child: Container(
+            padding: EdgeInsets.only(
+              top: 25,
+              left: 20,
+              right: 20,
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const EditAddContactScreen(),
+                          ),
+                        );
+                      },
+                      child: Icon(
+                        Icons.person_add_alt,
+                        color: Colors.white,
                         size: 35,
                       ),
-                    ],
-                  ),
-                ),
-              ),
-              SizedBox(height: 20),
-              Container(
-                height: size.height / 4 * 3,
-                child: ListView.separated(
-                  physics: BouncingScrollPhysics(),
-                  separatorBuilder: (context, index) => Container(
-                    height: 20,
-                  ),
-                  itemCount: 5,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      height: 400,
-                      width: size.width,
-                      decoration: BoxDecoration(
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const Settings(),
+                          ),
+                        );
+                      },
+                      child: Icon(
+                        Icons.settings,
                         color: Colors.white,
-                        borderRadius: BorderRadius.circular(20),
+                        size: 35,
                       ),
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => ViewContactScreen()));
-                        },
-                        child: Column(
-                          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            SizedBox(height: 20),
-                            Container(
-                              child: Image.asset(
-                                Constants.imageAssets('profile.png'),
-                                fit: BoxFit.fill,
-                              ),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                            ),
-                            SizedBox(height: 20),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "$index",
-                                  style: TextStyle(
-                                    fontSize: 25,
-                                  ),
-                                ),
-                                Text(
-                                  "Name",
-                                  style: TextStyle(
-                                    fontSize: 25,
-                                  ),
-                                ),
-                                Icon(
-                                  Icons.male,
-                                  color: Colors.black,
-                                  size: 35,
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
-                  },
+                    ),
+                  ],
                 ),
-              ),
-            ],
+                SizedBox(height: 20),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  height: 58,
+                  width: size.width,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Container(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        SizedBox(),
+                        Text(
+                          "search",
+                          style: TextStyle(
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Icon(
+                          Icons.search,
+                          color: Colors.black,
+                          size: 35,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(height: 20),
+                Container(
+                  height: size.height / 4 * 3,
+                  child: ListView.separated(
+                    physics: BouncingScrollPhysics(),
+                    separatorBuilder: (context, index) => Container(
+                      height: 20,
+                    ),
+                    itemCount: 5,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        height: 400,
+                        width: size.width,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ViewContactScreen()));
+                          },
+                          child: Column(
+                            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              SizedBox(height: 20),
+                              Container(
+                                child: Image.asset(
+                                  Constants.imageAssets('profile.png'),
+                                  fit: BoxFit.fill,
+                                ),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                              ),
+                              SizedBox(height: 20),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "$index",
+                                    style: TextStyle(
+                                      fontSize: 25,
+                                    ),
+                                  ),
+                                  Text(
+                                    "Name",
+                                    style: TextStyle(
+                                      fontSize: 25,
+                                    ),
+                                  ),
+                                  Icon(
+                                    Icons.male,
+                                    color: Colors.black,
+                                    size: 35,
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

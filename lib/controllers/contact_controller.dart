@@ -1,6 +1,10 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:kiss_list/model/contact_model.dart';
 import 'package:logger/logger.dart';
+import 'package:path/path.dart';
 
 class ContactController {
   //Firestore instance create
@@ -18,6 +22,7 @@ class ContactController {
     String notices,
     String about,
     String rating,
+    // img
   ) async {
     //upload the image task
 
@@ -33,23 +38,38 @@ class ContactController {
       'name': name,
       'gender': gender,
       'age': age,
-      'uid': date,
+      'date': date,
       'notices': notices,
       'about': about,
-      'rating': rating
+      'rating': rating,
+      //'img': downloadUrl
     });
   }
+
+  // uplod image to db
+  UploadTask? uploadFile(File file) {
+    try {
+      final fileName = basename(file.path);
+      final destination = 'resImages/$fileName';
+      final ref = FirebaseStorage.instance.ref(destination);
+      return ref.putFile(file);
+    } catch (e) {
+      Logger().e(e);
+      return null;
+    }
+  }
+
   //get user data
-  // Future<ContactModel?> getUserdata(String id) async {
-  //   try {
-  //     DocumentSnapshot snapshot = await contactDetails.doc(id).get();
-  //     Logger().i(snapshot.data());
-  //     ContactModel contactModel =
-  //         ContactModel.fromMap(snapshot.data() as Map<String, dynamic>);
-  //     Logger().d(contactModel.name);
-  //     return contactModel;
-  //   } catch (e) {
-  //     Logger().e(e);
-  //   }
-  // }
+  Future<ContactModel?> getContactDetails(String id) async {
+    try {
+      DocumentSnapshot snapshot = await contactDetails.doc(id).get();
+      Logger().i(snapshot.data());
+      ContactModel contactModel =
+          ContactModel.fromJson(snapshot.data() as Map<String, dynamic>);
+      Logger().d(contactModel.name);
+      return contactModel;
+    } catch (e) {
+      Logger().e(e);
+    }
+  }
 }
