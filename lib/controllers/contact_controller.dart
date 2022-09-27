@@ -15,21 +15,20 @@ class ContactController {
   //save user contact information
 
   Future<void> saveContactDetails(
-    String name,
-    String gender,
-    String age,
-    String date,
-    String notices,
-    String about,
-    String rating,
-    // img
-  ) async {
+      String name,
+      String gender,
+      String age,
+      String date,
+      String notices,
+      String about,
+      String rating,
+      File img) async {
     //upload the image task
 
-    // UploadTask? task = uploadFile(img);
-    // final snapshot = await task!.whenComplete(() {});
-    // final downloadUrl = await snapshot.ref.getDownloadURL();
-    // Logger().i(downloadUrl);
+    UploadTask? task = uploadFile(img);
+    final snapshot = await task!.whenComplete(() {});
+    final downloadUrl = await snapshot.ref.getDownloadURL();
+    Logger().i(downloadUrl);
 
     //get the unique document id auto genrator
     String docId = contactDetails.doc().id;
@@ -42,7 +41,7 @@ class ContactController {
       'notices': notices,
       'about': about,
       'rating': rating,
-      //'img': downloadUrl
+      'img': downloadUrl
     });
   }
 

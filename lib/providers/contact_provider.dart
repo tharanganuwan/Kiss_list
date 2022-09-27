@@ -87,7 +87,7 @@ class ContactProvider extends ChangeNotifier {
           _notices.text,
           _about.text,
           _rating.text,
-          //_image,
+          _image,
         );
         setLoading();
 
@@ -147,4 +147,48 @@ class ContactProvider extends ChangeNotifier {
   //   _isLoading = val;
   //   notifyListeners();
   // }
+
+/////////////,,,,,,,,,,Single resturent screen
+  ///list to single resturent products///
+  List<ContactModel> _contacts = [];
+
+  //List to store single resturent 3 products
+  List<ContactModel> _mincontacts = [];
+
+  //geter for single resturent product list
+  List<ContactModel> get products => _contacts;
+  //geter for single resturent 3 product list
+  List<ContactModel> get minProducts {
+    List<ContactModel> list = [];
+    for (var i = 0; i < _contacts.length; i++) {
+      list.add(_contacts[i]);
+      if (i == 2) break;
+    }
+    return list;
+  }
+
+  //fetch product by resturent id
+  Future<void> fetchProdutsResById(String resid) async {
+    try {
+      _mincontacts.clear();
+      _contacts.clear();
+      setLoading(true);
+      await _contactController.getContactDetails(resid).then((value) {
+        // _contacts = value;
+
+        // for (var i = 0; i < value.length; i++) {
+        //   _minproductsList.add(value[i]);
+        //   if (i == 2) break;
+        // }
+
+        Logger().w(_contacts.length);
+
+        setLoading();
+        notifyListeners();
+      });
+    } catch (e) {
+      Logger().e(e);
+      setLoading();
+    }
+  }
 }

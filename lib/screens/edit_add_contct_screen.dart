@@ -93,12 +93,7 @@ class _EditAddContactScreenState extends State<EditAddContactScreen> {
                           children: [
                             GestureDetector(
                               onTap: () {
-                                // Navigator.push(
-                                //   context,
-                                //   MaterialPageRoute(
-                                //     builder: (context) => const HomeScreen(),
-                                //   ),
-                                // );
+                                value.startAddContactDetails(context);
                               },
                               child: Icon(
                                 Icons.save_outlined,
@@ -124,10 +119,12 @@ class _EditAddContactScreenState extends State<EditAddContactScreen> {
                                 LeftContaner(
                                   text: "Kamal Kamal",
                                   width: 250,
+                                  controller: value.nameController,
                                 ),
                                 RightContaner(
                                   text: "X/10",
                                   width: 95,
+                                  controller: value.ratingController,
                                 ),
                               ],
                             ),
@@ -138,11 +135,13 @@ class _EditAddContactScreenState extends State<EditAddContactScreen> {
                                 LeftContaner(
                                   text: "Gender : ♂",
                                   width: 200,
+                                  controller: value.genderController,
                                 ),
                                 SizedBox(width: 10),
                                 CenterContaner(
                                   text: "Age : 18",
                                   width: 140,
+                                  controller: value.ageController,
                                 )
                               ],
                             ),
@@ -154,10 +153,12 @@ class _EditAddContactScreenState extends State<EditAddContactScreen> {
                                 CenterContaner(
                                   text: "Add date",
                                   width: 180,
+                                  controller: value.dateController,
                                 ),
                                 RightContaner(
                                   text: "Add ratin",
                                   width: 145,
+                                  controller: value.ratingController,
                                 ),
                               ],
                             ),
@@ -170,65 +171,93 @@ class _EditAddContactScreenState extends State<EditAddContactScreen> {
                                   text: "Add Notices",
                                   height: 110,
                                   width: size.width - 150,
+                                  controller: value.noticesController,
                                 ),
-                                RightContaner(
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 20),
                                   height: 110,
-                                  text: "Delete",
                                   width: 145,
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.horizontal(
+                                        left: Radius.circular(50)),
+                                  ),
+                                  child: Container(
+                                    child: Center(
+                                        child: IconButton(
+                                      icon: Icon(Icons.delete),
+                                      onPressed: () {},
+                                    )),
+                                  ),
                                 ),
                               ],
                             ),
                             SizedBox(
                               height: 8,
                             ),
-                            CenterContaner(text: "Add Another", width: 300)
+                            Container(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 20),
+                              height: 50,
+                              width: 300,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(50),
+                              ),
+                              child: Container(
+                                child: Center(child: Text('Add Another')),
+                              ),
+                            )
                           ],
                         ),
                       )
                     ],
                   ),
                   BottomContaner(
-                      height: 120,
-                      width: size.width - 10,
-                      text: "Hear can come notes about this peron general"),
+                    height: 120,
+                    width: size.width - 10,
+                    text: "Hear can come notes about this peron general",
+                    controller: value.aboutController,
+                  ),
                 ],
               ),
             ),
-            Column(
-              children: [
-                CustomTextFeild(
-                  controller: value.nameController,
-                  hint: 'name',
-                ),
-                CustomTextFeild(
-                    controller: value.genderController, hint: 'gender'),
-                CustomTextFeild(
-                  controller: value.ageController,
-                  hint: 'age',
-                ),
-                CustomTextFeild(
-                  controller: value.dateController,
-                  hint: 'date',
-                ),
-                CustomTextFeild(
-                  controller: value.aboutController,
-                  hint: 'about',
-                ),
-                CustomTextFeild(
-                  controller: value.noticesController,
-                  hint: 'notices',
-                ),
-                CustomTextFeild(
-                  controller: value.ratingController,
-                  hint: 'rating',
-                ),
-                CustomButton(
-                    name: "submit",
-                    onPress: () {
-                      value.startAddContactDetails(context);
-                    })
-              ],
-            )
+            // Column(
+            //   children: [
+            //     CustomTextFeild(
+            //       controller: value.nameController,
+            //       hint: 'name',
+            //     ),
+            //     CustomTextFeild(
+            //         controller: value.genderController, hint: 'gender'),
+            //     CustomTextFeild(
+            //       controller: value.ageController,
+            //       hint: 'age',
+            //     ),
+            //     CustomTextFeild(
+            //       controller: value.dateController,
+            //       hint: 'date',
+            //     ),
+            //     CustomTextFeild(
+            //       controller: value.aboutController,
+            //       hint: 'about',
+            //     ),
+            //     CustomTextFeild(
+            //       controller: value.noticesController,
+            //       hint: 'notices',
+            //     ),
+            //     CustomTextFeild(
+            //       controller: value.ratingController,
+            //       hint: 'rating',
+            //     ),
+            //     CustomButton(
+            //         name: "submit",
+            //         onPress: () {
+            //           value.startAddContactDetails(context);
+            //         })
+            //   ],
+            // )
           ],
         );
       }),
