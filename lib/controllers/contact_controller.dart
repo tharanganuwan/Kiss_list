@@ -103,6 +103,38 @@ class ContactController {
     }
   }
 
+  // Future<List<ContactModel>> getContactsss() async {
+  //   List<ContactModel> list = [];
+
+  //   //guery for fetch resturent products
+  //   // QuerySnapshot snapshot = await contactDetails.get();
+  //   // //querying all the docs in this snapshot
+  //   // for (var item in snapshot.docs) {
+  //   //   //mapping to a single model
+  //   //   ContactModel model =
+  //   //       ContactModel.fromMap(item.data() as Map<String, dynamic>);
+  //   //   list.add(model);
+
+  //   //   Logger().i(snapshot.docs);
+  //   firestore.collection('collection').snapshots().map((snapshot) =>
+  //       snapshot.docs.map((e) => ContactModel.fromMap(e.data())).toList());
+
+  //   //returning the list
+
+  //   return list;
+  // }
+  Stream<List<ContactModel>> getAContactFromFirebase() {
+    Stream<List<ContactModel>> l = firestore
+        .collection('contactDetails')
+
+        //.orderBy('publishedDate', descending: true)
+        .snapshots()
+        .map((snapshot) =>
+            snapshot.docs.map((e) => ContactModel.fromMap(e.data())).toList());
+
+    return l;
+  }
+
   // update user user details
   Future<void> updateContact(
     String name,

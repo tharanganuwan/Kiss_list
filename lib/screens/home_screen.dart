@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:kiss_list/controllers/contact_controller.dart';
 import 'package:kiss_list/model/contact_model.dart';
 import 'package:kiss_list/screens/edit_add_contct_screen.dart';
 import 'package:kiss_list/screens/settings.dart';
@@ -25,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {});
     super.initState();
 
-    Provider.of<ContactProvider>(context, listen: false).fetchContactsById();
+    // Provider.of<ContactProvider>(context, listen: false).fetchContactsById();
   }
 
   @override
@@ -126,17 +127,50 @@ class _HomeScreenState extends State<HomeScreen> {
                   SizedBox(height: 20),
                   Container(
                     height: size.height / 4 * 3,
-                    child: ListView.separated(
-                      physics: BouncingScrollPhysics(),
-                      separatorBuilder: (context, index) => Container(
-                        height: 20,
-                      ),
-                      itemCount: value.contactModel.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return ContactCard(
-                          size: size,
-                          model: value.contactModel[index],
-                        );
+                    // child: ListView.separated(
+                    //   physics: BouncingScrollPhysics(),
+                    //   separatorBuilder: (context, index) => Container(
+                    //     height: 20,
+                    //   ),
+                    //   itemCount: value.contactModel.length,
+                    //   itemBuilder: (BuildContext context, int index) {
+                    //     return ContactCard(
+                    //       size: size,
+                    //       model: value.contactModel[index],
+                    //     );
+                    //   },
+                    // ),
+                    child: StreamBuilder(
+                      stream: ContactController().getAContactFromFirebase(),
+                      builder: (context,
+                          AsyncSnapshot<List<ContactModel>> snapshot) {
+                        // print("-------------");
+                        // print(snapshot.data!.length);
+                        // print("-------------");
+
+                        if (snapshot.hasData) {
+                          return ListView.separated(
+                            separatorBuilder: (context, index) => Container(
+                              height: 20,
+                            ),
+                            physics: const BouncingScrollPhysics(),
+                            itemCount: snapshot.data!.length,
+                            itemBuilder: (context, index) {
+                              return ContactCard(
+                                size: size,
+                                model: snapshot.data![index],
+                              );
+                            },
+                          );
+                        } else if (snapshot.hasError) {
+                          return Center(
+                            child: Text('Error fetching data: ' +
+                                snapshot.error.toString()),
+                          );
+                        } else {
+                          return const Center(
+                              child: CircularProgressIndicator());
+                        }
                       },
                     ),
                   ),
@@ -151,8 +185,11 @@ class _HomeScreenState extends State<HomeScreen> {
 }
 
 class ContactCard extends StatelessWidget {
-  const ContactCard({Key? key, required this.size, required this.model})
-      : super(key: key);
+  const ContactCard({
+    Key? key,
+    required this.size,
+    required this.model,
+  }) : super(key: key);
 
   final Size size;
   final ContactModel model;
@@ -189,8 +226,7 @@ class ContactCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "01",
-                  // "$index",
+                  "1",
                   style: TextStyle(
                     fontSize: 25,
                   ),
