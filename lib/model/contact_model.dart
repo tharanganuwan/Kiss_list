@@ -21,24 +21,15 @@ class ContactModel {
       this.img});
 
   ContactModel.fromMap(Map map) {
-    id:
-    map['id'];
-    name:
-    map['name'];
-    gender:
-    map['gender'];
-    age:
-    map['age'];
-    date:
-    map['date'];
-    notices:
-    map['notices'];
-    about:
-    map['about'];
-    rating:
-    map['rating'];
-    img:
-    map['img'];
+    id = map['id'];
+    name = map['name'];
+    gender = map['gender'];
+    age = map['age'];
+    date = map['date'];
+    notices = map['notices'];
+    about = map['about'];
+    rating = map['rating'];
+    img = map['img'];
   }
 
   Map toJson() => {
