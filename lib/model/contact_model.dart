@@ -1,13 +1,13 @@
 class ContactModel {
-  int? id;
-  String? name;
-  String? gender;
-  String? age;
-  String? date;
-  String? notices;
-  String? about;
-  String? rating;
-  String? img;
+  late String id;
+  late String? name;
+  late String? gender;
+  late String? age;
+  late String? date;
+  late String? notices;
+  late String? about;
+  late String? rating;
+  late String? img;
 
   ContactModel(
       {required this.id,
@@ -20,14 +20,36 @@ class ContactModel {
       this.rating,
       this.img});
 
-  static ContactModel fromJson(Map<String, dynamic> json) => ContactModel(
-      id: json['id'],
-      name: json['name'],
-      gender: json['gender'],
-      age: json['age'],
-      date: json['date'],
-      notices: json['notices'],
-      about: json['about'],
-      rating: json['rating'],
-      img: json['img']);
+  ContactModel.fromMap(Map map) {
+    id:
+    map['id'];
+    name:
+    map['name'];
+    gender:
+    map['gender'];
+    age:
+    map['age'];
+    date:
+    map['date'];
+    notices:
+    map['notices'];
+    about:
+    map['about'];
+    rating:
+    map['rating'];
+    img:
+    map['img'];
+  }
+
+  Map toJson() => {
+        'id': id,
+        'name': name,
+        'gender': gender,
+        'age': age,
+        'date': date,
+        'notices': notices,
+        'about': about,
+        'rating': rating,
+        'img': img,
+      };
 }
