@@ -64,8 +64,28 @@ class ContactController {
   Future<List<ContactModel>> getContacts() async {
     List<ContactModel> list = [];
     try {
+      // FirebaseFirestore.instance
+      //     .collection('contactDetails')
+      //     .get()
+      //     .then((QuerySnapshot querySnapshot) {
+      //   querySnapshot.docs.forEach((doc) {
+      //     print(doc.data());
+      //     Logger().i(doc.data());
+      //   });
+      // });
+
       //guery for fetch resturent products
-      QuerySnapshot snapshot = await contactDetails.get();
+      QuerySnapshot snapshot = await FirebaseFirestore.instance
+          .collection('contactDetails')
+          .get()
+          .then((QuerySnapshot querySnapshot) {
+        querySnapshot.docs.forEach((doc) {
+          print(doc.data());
+          Logger().i(doc.data());
+          ContactModel model =
+              ContactModel.fromMap(item.data() as Map<String, dynamic>);
+        });
+      });
       //querying all the docs in this snapshot
       for (var item in snapshot.docs) {
         //mapping to a single model
