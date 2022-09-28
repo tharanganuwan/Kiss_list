@@ -5,6 +5,10 @@ import 'package:kiss_list/screens/edit_add_contct_screen.dart';
 import 'package:kiss_list/screens/home_screen.dart';
 import 'package:kiss_list/utills/constants.dart';
 import 'package:kiss_list/widget/widget.dart';
+import 'package:kiss_list/widget/widget_view.dart';
+import 'package:provider/provider.dart';
+
+import '../providers/contact_provider.dart';
 
 class ViewContactScreen extends StatefulWidget {
   const ViewContactScreen({Key? key}) : super(key: key);
@@ -18,22 +22,23 @@ class _ViewContactScreenState extends State<ViewContactScreen> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
-      body: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
-        child: Container(
-          width: size.width,
-          height: size.height + 50,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                Color.fromARGB(255, 36, 32, 32),
-                Color.fromARGB(255, 214, 81, 125),
-              ],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-            ),
+        body: SingleChildScrollView(
+      physics: BouncingScrollPhysics(),
+      child: Container(
+        width: size.width,
+        height: size.height + 50,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Color.fromARGB(255, 36, 32, 32),
+              Color.fromARGB(255, 214, 81, 125),
+            ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
           ),
-          child: Column(
+        ),
+        child: Consumer<ContactProvider>(builder: (context, value, child) {
+          return Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Stack(
@@ -96,11 +101,11 @@ class _ViewContactScreenState extends State<ViewContactScreen> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            LeftContaner(
-                              text: "Kamal Kamal",
+                            LeftContaner1(
+                              text: 'Kamal',
                               width: 250,
                             ),
-                            RightContaner(
+                            RightContaner1(
                               text: "X/10",
                               width: 95,
                             ),
@@ -110,12 +115,12 @@ class _ViewContactScreenState extends State<ViewContactScreen> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            LeftContaner(
+                            LeftContaner1(
                               text: "Gender : ",
                               width: 200,
                             ),
                             SizedBox(width: 10),
-                            CenterContaner(
+                            CenterContaner1(
                               text: "Age : 18",
                               width: 140,
                             )
@@ -125,11 +130,11 @@ class _ViewContactScreenState extends State<ViewContactScreen> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            LeftContaner(
+                            LeftContaner1(
                               text: "10/02/2022",
                               width: 200,
                             ),
-                            RightContaner(
+                            RightContaner1(
                               text: "X/10",
                               width: 95,
                             ),
@@ -138,7 +143,7 @@ class _ViewContactScreenState extends State<ViewContactScreen> {
                         SizedBox(height: 8),
                         Align(
                           alignment: Alignment.centerLeft,
-                          child: LeftContaner(
+                          child: LeftContaner1(
                             text: " Notices",
                             height: 150,
                             width: size.width - 20,
@@ -150,14 +155,14 @@ class _ViewContactScreenState extends State<ViewContactScreen> {
                   )
                 ],
               ),
-              BottomContaner(
+              BottomContaner1(
                   height: 120,
                   width: size.width - 10,
                   text: "Hear can come notes about this peron general")
             ],
-          ),
-        ),
+          );
+        }),
       ),
-    );
+    ));
   }
 }

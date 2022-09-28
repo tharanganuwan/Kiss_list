@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
@@ -62,6 +60,10 @@ class ContactProvider extends ChangeNotifier {
 
   //get image file
   File get getImg => _image;
+
+  List<ContactModel> _contactModel = [];
+
+  List<ContactModel> get contactModel => _contactModel;
 
   //validation function
 
@@ -130,21 +132,61 @@ class ContactProvider extends ChangeNotifier {
     }
   }
 
-  // ///resturent details screen
-  // //defining single resurent model
-  late ContactModel _resturentModel;
-  // //getter for res model
-  ContactModel get singleRes => _resturentModel;
+  //fetch product by resturent id
+  Future<void> fetchContactsById() async {
+    try {
+      _contactModel.clear();
+      // setLoading(true);
+      await _contactController.getContacts().then((value) {
+        _contactModel = value;
 
-  // //set the resturent model
-  void setSingleRes(ContactModel model) {
-    _resturentModel = model;
-    notifyListeners();
+        // for (var i = 0; i < value.length; i++) {
+        //   _minproductsList.add(value[i]);
+        //   if (i == 2) break;
+        // }
+
+        Logger().w(_contactModel.length);
+        Logger().i(contactModel[2].id);
+
+        //  setLoading();
+        notifyListeners();
+      });
+    } catch (e) {
+      Logger().e(e);
+      //setLoading();
+    }
   }
 
   // //change loading state
   // void setLoading([bool val = false]) {
   //   _isLoading = val;
+  bool loding = false;
+  Future<void> updateUser(BuildContext context) async {
+    loding = true;
+    try {
+      _contactController.updateContact(
+        _name.text,
+        _gender.text,
+        _age.text,
+        _date.text,
+        _notices.text,
+        _about.text,
+        _rating.text,
+        _image,
+      );
+
+      notifyListeners();
+    } catch (e) {}
+  }
+
+  // void setImage(String a, UserModel model) {
+  //   model.img = a;
+  //   // model.fname = _fNameController.text;
+  //   // model.lname = _lNameController.text;
+  //   // model.email = _emailController.text;
+  //   // model.occupation = _occupationController.text;
+  //   // model.status = _statusController.text;
+  //   loding = false;
   //   notifyListeners();
   // }
 }
