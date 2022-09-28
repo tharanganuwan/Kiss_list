@@ -117,7 +117,7 @@ class _EditAddContactScreenState extends State<EditAddContactScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 LeftContaner(
-                                  text: "Kamal Kamal",
+                                  text: "Name",
                                   width: 250,
                                   controller: value.nameController,
                                 ),
@@ -139,7 +139,7 @@ class _EditAddContactScreenState extends State<EditAddContactScreen> {
                                 ),
                                 SizedBox(width: 10),
                                 CenterContaner(
-                                  text: "Age : 18",
+                                  text: "Age : __",
                                   width: 140,
                                   controller: value.ageController,
                                 )
@@ -156,7 +156,7 @@ class _EditAddContactScreenState extends State<EditAddContactScreen> {
                                   controller: value.dateController,
                                 ),
                                 RightContaner(
-                                  text: "Add ratin",
+                                  text: "Add rating",
                                   width: 145,
                                   controller: value.ratingController,
                                 ),

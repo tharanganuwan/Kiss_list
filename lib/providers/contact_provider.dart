@@ -133,29 +133,29 @@ class ContactProvider extends ChangeNotifier {
   }
 
   //fetch product by resturent id
-  Future<void> fetchContactsById() async {
-    try {
-      _contactModel.clear();
-      // setLoading(true);
-      await _contactController.getContacts().then((value) {
-        _contactModel = value;
+  // Future<void> fetchContactsById() async {
+  //   try {
+  //     _contactModel.clear();
+  //     // setLoading(true);
+  //     await _contactController.getContacts().then((value) {
+  //       _contactModel = value;
 
-        // for (var i = 0; i < value.length; i++) {
-        //   _minproductsList.add(value[i]);
-        //   if (i == 2) break;
-        // }
+  //       // for (var i = 0; i < value.length; i++) {
+  //       //   _minproductsList.add(value[i]);
+  //       //   if (i == 2) break;
+  //       // }
 
-        Logger().w(_contactModel.length);
-        Logger().i(contactModel[2].id);
+  //       Logger().w(_contactModel.length);
+  //       Logger().i(contactModel[2].id);
 
-        //  setLoading();
-        notifyListeners();
-      });
-    } catch (e) {
-      Logger().e(e);
-      //setLoading();
-    }
-  }
+  //       //  setLoading();
+  //       notifyListeners();
+  //     });
+  //   } catch (e) {
+  //     Logger().e(e);
+  //     //setLoading();
+  //   }
+  // }
 
   // //change loading state
   // void setLoading([bool val = false]) {
