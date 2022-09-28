@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
@@ -62,6 +60,10 @@ class ContactProvider extends ChangeNotifier {
 
   //get image file
   File get getImg => _image;
+
+  List<ContactModel> _contactModel = [];
+
+  List<ContactModel> get contactModel => _contactModel;
 
   //validation function
 
@@ -130,65 +132,61 @@ class ContactProvider extends ChangeNotifier {
     }
   }
 
-  // ///resturent details screen
-  // //defining single resurent model
-  late ContactModel _resturentModel;
-  // //getter for res model
-  ContactModel get singleRes => _resturentModel;
-
-  // //set the resturent model
-  void setSingleRes(ContactModel model) {
-    _resturentModel = model;
-    notifyListeners();
-  }
-
-  // //change loading state
-  // void setLoading([bool val = false]) {
-  //   _isLoading = val;
-  //   notifyListeners();
-  // }
-
-/////////////,,,,,,,,,,Single resturent screen
-  ///list to single resturent products///
-  List<ContactModel> _contacts = [];
-
-  //List to store single resturent 3 products
-  List<ContactModel> _mincontacts = [];
-
-  //geter for single resturent product list
-  List<ContactModel> get products => _contacts;
-  //geter for single resturent 3 product list
-  List<ContactModel> get minProducts {
-    List<ContactModel> list = [];
-    for (var i = 0; i < _contacts.length; i++) {
-      list.add(_contacts[i]);
-      if (i == 2) break;
-    }
-    return list;
-  }
-
   //fetch product by resturent id
-  Future<void> fetchProdutsResById(String resid) async {
+  Future<void> fetchContactsById() async {
     try {
-      _mincontacts.clear();
-      _contacts.clear();
-      setLoading(true);
-      await _contactController.getContactDetails(resid).then((value) {
-        // _contacts = value;
+      _contactModel.clear();
+      // setLoading(true);
+      await _contactController.getContacts().then((value) {
+        _contactModel = value;
 
         // for (var i = 0; i < value.length; i++) {
         //   _minproductsList.add(value[i]);
         //   if (i == 2) break;
         // }
 
-        Logger().w(_contacts.length);
+        Logger().w(_contactModel.length);
+        Logger().i(contactModel[2].id);
 
-        setLoading();
+        //  setLoading();
         notifyListeners();
       });
     } catch (e) {
       Logger().e(e);
-      setLoading();
+      //setLoading();
     }
   }
+
+  // //change loading state
+  // void setLoading([bool val = false]) {
+  //   _isLoading = val;
+  bool loding = false;
+  Future<void> updateUser(BuildContext context) async {
+    loding = true;
+    try {
+      _contactController.updateContact(
+        _name.text,
+        _gender.text,
+        _age.text,
+        _date.text,
+        _notices.text,
+        _about.text,
+        _rating.text,
+        _image,
+      );
+
+      notifyListeners();
+    } catch (e) {}
+  }
+
+  // void setImage(String a, UserModel model) {
+  //   model.img = a;
+  //   // model.fname = _fNameController.text;
+  //   // model.lname = _lNameController.text;
+  //   // model.email = _emailController.text;
+  //   // model.occupation = _occupationController.text;
+  //   // model.status = _statusController.text;
+  //   loding = false;
+  //   notifyListeners();
+  // }
 }
