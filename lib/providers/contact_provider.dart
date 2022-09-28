@@ -87,7 +87,7 @@ class ContactProvider extends ChangeNotifier {
           _notices.text,
           _about.text,
           _rating.text,
-          //_image,
+          _image,
         );
         setLoading();
 
