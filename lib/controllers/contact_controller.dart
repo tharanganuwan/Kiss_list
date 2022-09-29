@@ -140,4 +140,9 @@ class ContactController {
       Logger().e(e);
     }
   }
+
+  //delete
+  Future<void> deleteContact(String id) async {
+    firestore.collection('contactDetails').doc(id).delete();
+  }
 }
