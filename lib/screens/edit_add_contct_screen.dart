@@ -3,6 +3,8 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:kiss_list/components/custom_button.dart';
 import 'package:kiss_list/components/custom_textFeild.dart';
+import 'package:kiss_list/controllers/contact_controller.dart';
+import 'package:kiss_list/model/contact_model.dart';
 import 'package:kiss_list/providers/contact_provider.dart';
 import 'package:kiss_list/screens/home_screen.dart';
 import 'package:kiss_list/utills/constants.dart';
@@ -10,7 +12,9 @@ import 'package:kiss_list/widget/widget.dart';
 import 'package:provider/provider.dart';
 
 class EditAddContactScreen extends StatefulWidget {
-  const EditAddContactScreen({Key? key}) : super(key: key);
+  EditAddContactScreen({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<EditAddContactScreen> createState() => _EditAddContactScreenState();
@@ -101,10 +105,21 @@ class _EditAddContactScreenState extends State<EditAddContactScreen> {
                                 size: 35,
                               ),
                             ),
-                            Icon(
-                              Icons.delete_outlined,
-                              color: Color.fromARGB(255, 0, 0, 0),
-                              size: 35,
+                            GestureDetector(
+                              onTap: (() {
+                                value.aboutController.clear();
+                                value.ageController.clear();
+                                value.nameController.clear();
+                                value.ratingController.clear();
+                                value.dateController.clear();
+                                value.noticesController.clear();
+                                value.genderController.clear();
+                              }),
+                              child: Icon(
+                                Icons.delete_outlined,
+                                color: Color.fromARGB(255, 0, 0, 0),
+                                size: 35,
+                              ),
                             ),
                           ],
                         ),
@@ -117,7 +132,7 @@ class _EditAddContactScreenState extends State<EditAddContactScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 LeftContaner(
-                                  text: "Kamal Kamal",
+                                  text: "Name",
                                   width: 250,
                                   controller: value.nameController,
                                 ),
@@ -139,7 +154,7 @@ class _EditAddContactScreenState extends State<EditAddContactScreen> {
                                 ),
                                 SizedBox(width: 10),
                                 CenterContaner(
-                                  text: "Age : 18",
+                                  text: "Age : __",
                                   width: 140,
                                   controller: value.ageController,
                                 )
@@ -156,7 +171,7 @@ class _EditAddContactScreenState extends State<EditAddContactScreen> {
                                   controller: value.dateController,
                                 ),
                                 RightContaner(
-                                  text: "Add ratin",
+                                  text: "Add rating",
                                   width: 145,
                                   controller: value.ratingController,
                                 ),
@@ -187,7 +202,15 @@ class _EditAddContactScreenState extends State<EditAddContactScreen> {
                                     child: Center(
                                         child: IconButton(
                                       icon: Icon(Icons.delete),
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        value.aboutController.clear();
+                                        value.ageController.clear();
+                                        value.nameController.clear();
+                                        value.ratingController.clear();
+                                        value.dateController.clear();
+                                        value.noticesController.clear();
+                                        value.genderController.clear();
+                                      },
                                     )),
                                   ),
                                 ),

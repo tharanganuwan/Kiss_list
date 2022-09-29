@@ -19,9 +19,7 @@ class CustomTextFeild extends StatelessWidget {
     return TextField(
       textAlign: align,
       controller: controller,
-      style: TextStyle(
-        fontSize: 16,
-      ),
+      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
       decoration: InputDecoration(
         prefixIcon: widget,
         fillColor: Colors.white,
@@ -30,9 +28,9 @@ class CustomTextFeild extends StatelessWidget {
         border: OutlineInputBorder(
             borderSide: BorderSide.none,
             borderRadius: BorderRadius.circular(15)),
-        focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.black),
-            borderRadius: BorderRadius.circular(15)),
+        // focusedBorder: OutlineInputBorder(
+        //     borderSide: BorderSide(color: Colors.black),
+        //     borderRadius: BorderRadius.circular(15)),
       ),
     );
   }

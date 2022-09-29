@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:kiss_list/model/contact_model.dart';
 import 'package:kiss_list/screens/edit_add_contct_screen.dart';
 import 'package:kiss_list/screens/home_screen.dart';
 import 'package:kiss_list/utills/constants.dart';
@@ -11,8 +12,11 @@ import 'package:provider/provider.dart';
 import '../providers/contact_provider.dart';
 
 class ViewContactScreen extends StatefulWidget {
-  const ViewContactScreen({Key? key}) : super(key: key);
-
+  const ViewContactScreen({
+    Key? key,
+    required this.contactModel,
+  }) : super(key: key);
+  final ContactModel contactModel;
   @override
   State<ViewContactScreen> createState() => _ViewContactScreenState();
 }
@@ -44,13 +48,9 @@ class _ViewContactScreenState extends State<ViewContactScreen> {
               Stack(
                 children: [
                   SizedBox(
-                    width: size.width,
-                    height: 300,
-                    child: Image.asset(
-                      Constants.imageAssets('profile.png'),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
+                      width: size.width,
+                      height: 300,
+                      child: Image.network(widget.contactModel.img.toString())),
                   Padding(
                     padding: const EdgeInsets.only(
                       top: 25,
@@ -80,8 +80,7 @@ class _ViewContactScreenState extends State<ViewContactScreen> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) =>
-                                    const EditAddContactScreen(),
+                                builder: (context) => EditAddContactScreen(),
                               ),
                             );
                           },
@@ -102,7 +101,7 @@ class _ViewContactScreenState extends State<ViewContactScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             LeftContaner1(
-                              text: 'Kamal',
+                              text: widget.contactModel.name.toString(),
                               width: 250,
                             ),
                             RightContaner1(
@@ -116,12 +115,12 @@ class _ViewContactScreenState extends State<ViewContactScreen> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             LeftContaner1(
-                              text: "Gender : ",
+                              text: widget.contactModel.gender.toString(),
                               width: 200,
                             ),
                             SizedBox(width: 10),
                             CenterContaner1(
-                              text: "Age : 18",
+                              text: widget.contactModel.age.toString(),
                               width: 140,
                             )
                           ],
@@ -131,7 +130,7 @@ class _ViewContactScreenState extends State<ViewContactScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             LeftContaner1(
-                              text: "10/02/2022",
+                              text: widget.contactModel.date.toString(),
                               width: 200,
                             ),
                             RightContaner1(
@@ -144,7 +143,7 @@ class _ViewContactScreenState extends State<ViewContactScreen> {
                         Align(
                           alignment: Alignment.centerLeft,
                           child: LeftContaner1(
-                            text: " Notices",
+                            text: widget.contactModel.notices.toString(),
                             height: 150,
                             width: size.width - 20,
                           ),
@@ -158,7 +157,7 @@ class _ViewContactScreenState extends State<ViewContactScreen> {
               BottomContaner1(
                   height: 120,
                   width: size.width - 10,
-                  text: "Hear can come notes about this peron general")
+                  text: widget.contactModel.about.toString())
             ],
           );
         }),

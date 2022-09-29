@@ -1,11 +1,16 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:kiss_list/controllers/contact_controller.dart';
 import 'package:kiss_list/model/contact_model.dart';
+import 'package:kiss_list/screens/home_screen.dart';
+import 'package:kiss_list/utills/util_functions.dart';
 import 'package:logger/logger.dart';
 
 import 'dart:io';
+
+import '../components/custom_dialog.dart';
 
 class ContactProvider extends ChangeNotifier {
   //resturent controller
@@ -81,7 +86,8 @@ class ContactProvider extends ChangeNotifier {
     try {
       if (inputValidation()) {
         setLoading(true);
-        await _contactController.saveContactDetails(
+        await _contactController
+            .saveContactDetails(
           _name.text,
           _gender.text,
           _age.text,
@@ -90,17 +96,24 @@ class ContactProvider extends ChangeNotifier {
           _about.text,
           _rating.text,
           _image,
-        );
-        setLoading();
+        )
+            .whenComplete(() {
+          // UserProvider().fetchSingleUser(
+          //   AuthController().userCredential2.user!.uid.toString(),
+          // );
 
-        // DialogBox().dialogBox(
-        //     context, DialogType.SUCCES, "SUCCESS", "resturent added");
+          CustomAwesomDialog().dialogBox(context, "Success...!",
+              "Congratulations...! Successfully added.", DialogType.SUCCES);
+
+          Future.delayed(Duration(seconds: 5), () {
+            UtilFunctions.pushRemoveNavigator(context, HomeScreen());
+          });
+        });
+        ;
+        setLoading();
       } else {
-        // DialogBox().dialogBox(
-        //     context,
-        //     DialogType.ERROR,
-        //     'Incorrect Information',
-        //     'Please Enter Please Enter correct Information');
+        CustomAwesomDialog().dialogBox(
+            context, "Error!", "Please check fields.", DialogType.SUCCES);
       }
     } catch (e) {
       setLoading();
@@ -132,30 +145,40 @@ class ContactProvider extends ChangeNotifier {
     }
   }
 
-  //fetch product by resturent id
-  Future<void> fetchContactsById() async {
-    try {
-      _contactModel.clear();
-      // setLoading(true);
-      await _contactController.getContacts().then((value) {
-        _contactModel = value;
-
-        // for (var i = 0; i < value.length; i++) {
-        //   _minproductsList.add(value[i]);
-        //   if (i == 2) break;
-        // }
-
-        Logger().w(_contactModel.length);
-        Logger().i(contactModel[2].id);
-
-        //  setLoading();
-        notifyListeners();
-      });
-    } catch (e) {
-      Logger().e(e);
-      //setLoading();
-    }
+  void setImage(String a, ContactModel model) {
+    model.img = a;
+    // model.fname = _fNameController.text;
+    // model.lname = _lNameController.text;
+    // model.email = _emailController.text;
+    // model.occupation = _occupationController.text;
+    // model.status = _statusController.text;
+    loding = false;
+    notifyListeners();
   }
+  //fetch product by resturent id
+  // Future<void> fetchContactsById() async {
+  //   try {
+  //     _contactModel.clear();
+  //     // setLoading(true);
+  //     await _contactController.getContacts().then((value) {
+  //       _contactModel = value;
+
+  //       // for (var i = 0; i < value.length; i++) {
+  //       //   _minproductsList.add(value[i]);
+  //       //   if (i == 2) break;
+  //       // }
+
+  //       Logger().w(_contactModel.length);
+  //       Logger().i(contactModel[2].id);
+
+  //       //  setLoading();
+  //       notifyListeners();
+  //     });
+  //   } catch (e) {
+  //     Logger().e(e);
+  //     //setLoading();
+  //   }
+  // }
 
   // //change loading state
   // void setLoading([bool val = false]) {
@@ -188,5 +211,15 @@ class ContactProvider extends ChangeNotifier {
   //   // model.status = _statusController.text;
   //   loding = false;
   //   notifyListeners();
+  // }
+  // Future<void> deleteUser(String id) async {
+
+  //   try {
+  //     _contactController.deleteContact(
+
+  //     );
+
+  //     notifyListeners();
+  //   } catch (e) {}
   // }
 }

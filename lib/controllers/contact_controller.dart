@@ -60,29 +60,6 @@ class ContactController {
     }
   }
 
-  //fetch contacts by the  id
-  Future<List<ContactModel>> getContacts() async {
-    List<ContactModel> list = [];
-    try {
-      //guery for fetch resturent products
-      QuerySnapshot snapshot = await contactDetails.get();
-      //querying all the docs in this snapshot
-      for (var item in snapshot.docs) {
-        //mapping to a single model
-        ContactModel model =
-            ContactModel.fromMap(item.data() as Map<String, dynamic>);
-        list.add(model);
-
-        Logger().i(snapshot.docs);
-      }
-      //returning the list
-      return list;
-    } catch (e) {
-      Logger().e(e);
-      return list;
-    }
-  }
-
   // Future<List<ContactModel>> getContactsss() async {
   //   List<ContactModel> list = [];
 
@@ -162,5 +139,10 @@ class ContactController {
     } catch (e) {
       Logger().e(e);
     }
+  }
+
+  //delete
+  Future<void> deleteContact(String id) async {
+    firestore.collection('contactDetails').doc(id).delete();
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:kiss_list/components/custom_textFeild.dart';
 import 'package:kiss_list/controllers/contact_controller.dart';
 import 'package:kiss_list/model/contact_model.dart';
 import 'package:kiss_list/screens/edit_add_contct_screen.dart';
@@ -66,8 +67,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) =>
-                                  const EditAddContactScreen(),
+                              builder: (context) => EditAddContactScreen(),
                             ),
                           );
                         },
@@ -108,6 +108,23 @@ class _HomeScreenState extends State<HomeScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           SizedBox(),
+                          TextField(
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.bold),
+                            decoration: InputDecoration(
+                              prefixIcon: widget,
+                              fillColor: Colors.white,
+                              filled: true,
+                              hintText: "Search",
+                              border: OutlineInputBorder(
+                                  borderSide: BorderSide.none,
+                                  borderRadius: BorderRadius.circular(15)),
+                              // focusedBorder: OutlineInputBorder(
+                              //     borderSide: BorderSide(color: Colors.black),
+                              //     borderRadius: BorderRadius.circular(15)),
+                            ),
+                          ),
                           Text(
                             "Search",
                             style: TextStyle(
@@ -205,18 +222,20 @@ class ContactCard extends StatelessWidget {
       ),
       child: GestureDetector(
         onTap: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => ViewContactScreen()));
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => ViewContactScreen(
+                        contactModel: model,
+                      )));
         },
         child: Column(
           // mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             SizedBox(height: 20),
             Container(
-              child: Image.asset(
-                Constants.imageAssets('profile.png'),
-                fit: BoxFit.fill,
-              ),
+              height: 300,
+              child: Image.network(fit: BoxFit.cover, model.img.toString()),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
               ),
