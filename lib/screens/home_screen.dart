@@ -108,35 +108,31 @@ class _HomeScreenState extends State<HomeScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           SizedBox(),
-                          TextField(
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.bold),
-                            decoration: InputDecoration(
-                              prefixIcon: widget,
-                              fillColor: Colors.white,
-                              filled: true,
-                              hintText: "Search",
-                              border: OutlineInputBorder(
-                                  borderSide: BorderSide.none,
-                                  borderRadius: BorderRadius.circular(15)),
-                              // focusedBorder: OutlineInputBorder(
-                              //     borderSide: BorderSide(color: Colors.black),
-                              //     borderRadius: BorderRadius.circular(15)),
-                            ),
-                          ),
-                          Text(
-                            "Search",
-                            style: TextStyle(
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Icon(
-                            Icons.search,
-                            color: Colors.black,
-                            size: 35,
-                          ),
+                          // SizedBox(
+                          //   width: 200,
+                          //   child: TextField(
+                          //     textAlign: TextAlign.center,
+                          //     style: TextStyle(
+                          //         fontSize: 16, fontWeight: FontWeight.bold),
+                          //     decoration: InputDecoration(
+                          //       prefixIcon: Icon(Icons.search),
+                          //       fillColor: Colors.white,
+                          //       filled: true,
+                          //       hintText: "Search",
+                          //       border: OutlineInputBorder(
+                          //           borderSide: BorderSide.none,
+                          //           borderRadius: BorderRadius.circular(15)),
+                          //       // focusedBorder: OutlineInputBorder(
+                          //       //     borderSide: BorderSide(color: Colors.black),
+                          //       //     borderRadius: BorderRadius.circular(15)),
+                          //     ),
+                          //   ),
+                          // ),
+                          // Icon(
+                          //   Icons.search,
+                          //   color: Colors.black,
+                          //   size: 35,
+                          // ),
                         ],
                       ),
                     ),
