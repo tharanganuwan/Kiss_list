@@ -115,13 +115,7 @@ class _AddContactScreenState extends State<AddContactScreen> {
                                   .withOpacity(0.8),
                               child: GestureDetector(
                                 onTap: (() {
-                                  value.aboutController.clear();
-                                  value.ageController.clear();
-                                  value.nameController.clear();
-                                  value.ratingController.clear();
-                                  value.dateController.clear();
-                                  value.noticesController.clear();
-                                  value.genderController.clear();
+                                  value.cleardata();
                                 }),
                                 child: Icon(
                                   Icons.delete_outlined,
@@ -212,13 +206,7 @@ class _AddContactScreenState extends State<AddContactScreen> {
                                         child: IconButton(
                                       icon: Icon(Icons.delete),
                                       onPressed: () {
-                                        value.aboutController.clear();
-                                        value.ageController.clear();
-                                        value.nameController.clear();
-                                        value.ratingController.clear();
-                                        value.dateController.clear();
-                                        value.noticesController.clear();
-                                        value.genderController.clear();
+                                        value.cleardata();
                                       },
                                     )),
                                   ),

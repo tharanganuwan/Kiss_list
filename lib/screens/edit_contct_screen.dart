@@ -1,7 +1,9 @@
 import 'dart:ui';
 
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:kiss_list/components/custom_button.dart';
+import 'package:kiss_list/components/custom_dialog.dart';
 import 'package:kiss_list/components/custom_textFeild.dart';
 import 'package:kiss_list/controllers/contact_controller.dart';
 import 'package:kiss_list/model/contact_model.dart';
@@ -116,13 +118,20 @@ class _EditContactScreenState extends State<EditContactScreen> {
                                   .withOpacity(0.8),
                               child: GestureDetector(
                                 onTap: (() {
-                                  value.aboutController.clear();
-                                  value.ageController.clear();
-                                  value.nameController.clear();
-                                  value.ratingController.clear();
-                                  value.dateController.clear();
-                                  value.noticesController.clear();
-                                  value.genderController.clear();
+                                  ContactController()
+                                      .deleteContact(widget.contactModel.id)
+                                      .whenComplete(() {
+                                    CustomAwesomDialog().dialogBox(
+                                        context,
+                                        "Success...!",
+                                        "Congratulations...! Successfully Deleted.",
+                                        DialogType.SUCCES);
+
+                                    Future.delayed(Duration(seconds: 5), () {
+                                      UtilFunctions.pushRemoveNavigator(
+                                          context, HomeScreen());
+                                    });
+                                  });
                                 }),
                                 child: Icon(
                                   Icons.delete_outlined,
@@ -213,8 +222,24 @@ class _EditContactScreenState extends State<EditContactScreen> {
                                         child: IconButton(
                                       icon: Icon(Icons.delete),
                                       onPressed: () {
-                                        ContactController().deleteContact(
-                                            widget.contactModel.id);
+                                        //value.deleteContactDetails(context);
+                                        ContactController()
+                                            .deleteContact(
+                                                widget.contactModel.id)
+                                            .whenComplete(() {
+                                          CustomAwesomDialog().dialogBox(
+                                              context,
+                                              "Success...!",
+                                              "Congratulations...! Successfully Deleted.",
+                                              DialogType.SUCCES);
+
+                                          Future.delayed(Duration(seconds: 5),
+                                              () {
+                                            UtilFunctions.pushRemoveNavigator(
+                                                context, HomeScreen());
+                                          });
+                                        });
+                                        ;
                                       },
                                     )),
                                   ),
@@ -226,13 +251,7 @@ class _EditContactScreenState extends State<EditContactScreen> {
                             ),
                             GestureDetector(
                               onTap: () {
-                                value.aboutController.clear();
-                                value.ageController.clear();
-                                value.nameController.clear();
-                                value.ratingController.clear();
-                                value.dateController.clear();
-                                value.noticesController.clear();
-                                value.genderController.clear();
+                                value.cleardata();
                               },
                               child: Container(
                                 padding:

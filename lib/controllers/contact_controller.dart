@@ -1,11 +1,17 @@
 import 'dart:io';
 
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:kiss_list/model/contact_model.dart';
 import 'package:kiss_list/providers/contact_provider.dart';
 import 'package:logger/logger.dart';
 import 'package:path/path.dart';
+
+import '../components/custom_dialog.dart';
+import '../screens/home_screen.dart';
+import '../utills/util_functions.dart';
 
 class ContactController {
   //Firestore instance create

@@ -107,6 +107,7 @@ class ContactProvider extends ChangeNotifier {
 
           Future.delayed(Duration(seconds: 5), () {
             UtilFunctions.pushRemoveNavigator(context, HomeScreen());
+            cleardata();
           });
         });
 
@@ -193,4 +194,34 @@ class ContactProvider extends ChangeNotifier {
           context, "Error!", "Please check fields.", DialogType.SUCCES);
     }
   }
+
+  void cleardata() {
+    _name.clear();
+    _gender.clear();
+    _age.clear();
+    _date.clear();
+    _notices.clear();
+    _about.clear();
+    _rating.clear();
+    _image = File("");
+  }
+  // Future<void> deleteContactDetails(BuildContext context) async {
+  //   try {
+  //     _contactController.deleteContact(_contactController.contactDetails.id);
+  //     //     .whenComplete(() {
+  //     //   // UserProvider().fetchSingleUser(
+  //     //   //   AuthController().userCredential2.user!.uid.toString(),
+  //     //   // );
+
+  //     //   CustomAwesomDialog().dialogBox(context, "Success...!",
+  //     //       "Congratulations...! Successfully Updated.", DialogType.SUCCES);
+
+  //     //   Future.delayed(Duration(seconds: 5), () {
+  //     //     UtilFunctions.pushRemoveNavigator(context, HomeScreen());
+  //     //   });
+  //     // });
+  //     // Logger().i(_name.text);
+  //     // notifyListeners();
+  //   } catch (e) {}
+  // }
 }
