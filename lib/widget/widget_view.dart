@@ -27,9 +27,9 @@ class LeftContaner1 extends StatelessWidget {
                 child: Text(
                   text,
                   style: TextStyle(
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold,
-                  ),
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      overflow: TextOverflow.clip),
                 ),
               )
             : Text(
@@ -142,9 +142,9 @@ class BottomContaner1 extends StatelessWidget {
           child: Text(
             text,
             style: TextStyle(
-              fontSize: 25,
-              fontWeight: FontWeight.bold,
-            ),
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                overflow: TextOverflow.clip),
           ),
         ),
       ),

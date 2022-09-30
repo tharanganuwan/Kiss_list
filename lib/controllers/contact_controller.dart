@@ -117,6 +117,7 @@ class ContactController {
     Logger().i(downloadUrl);
 
     String docId = contactDetails.doc().id;
+    Logger().i(docId);
 
     await contactDetails.doc(contactDetails.doc().id).set({
       'name': name,
