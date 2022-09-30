@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:kiss_list/controllers/contact_controller.dart';
 import 'package:kiss_list/model/contact_model.dart';
-import 'package:kiss_list/screens/edit_add_contct_screen.dart';
+
 import 'package:kiss_list/screens/settings.dart';
 import 'package:kiss_list/screens/view_contact_screen.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/contact_provider.dart';
+import 'add_contct_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -62,7 +63,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => EditAddContactScreen(),
+                              builder: (context) => AddContactScreen(),
                             ),
                           );
                         },
@@ -174,7 +175,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               return ContactCard(
                                 size: size,
                                 model: snapshot.data![index],
-                                num: index,
+                                num: snapshot.data!.length - index,
                               );
                             },
                           );
@@ -234,19 +235,21 @@ class ContactCard extends StatelessWidget {
           // mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             SizedBox(height: 20),
-            Container(
-              height: 300,
-              child: Image.network(fit: BoxFit.cover, model.img.toString()),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
+            ClipRRect(
+              child: Image.network(
+                fit: BoxFit.fill,
+                model.img.toString(),
+                height: 300,
+                width: size.width,
               ),
+              borderRadius: BorderRadius.circular(20),
             ),
             SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  (num + 1).toString(),
+                  (num).toString(),
                   style: TextStyle(
                     fontSize: 25,
                   ),

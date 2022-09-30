@@ -1,26 +1,30 @@
 import 'dart:ui';
 
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:kiss_list/components/custom_button.dart';
+import 'package:kiss_list/components/custom_dialog.dart';
 import 'package:kiss_list/components/custom_textFeild.dart';
 import 'package:kiss_list/controllers/contact_controller.dart';
 import 'package:kiss_list/model/contact_model.dart';
 import 'package:kiss_list/providers/contact_provider.dart';
 import 'package:kiss_list/screens/home_screen.dart';
 import 'package:kiss_list/utills/constants.dart';
+import 'package:kiss_list/utills/util_functions.dart';
 import 'package:kiss_list/widget/widget.dart';
 import 'package:provider/provider.dart';
 
-class EditAddContactScreen extends StatefulWidget {
-  EditAddContactScreen({
+class EditContactScreen extends StatefulWidget {
+  EditContactScreen({
     Key? key,
+    required this.contactModel,
   }) : super(key: key);
-
+  final ContactModel contactModel;
   @override
-  State<EditAddContactScreen> createState() => _EditAddContactScreenState();
+  State<EditContactScreen> createState() => _EditContactScreenState();
 }
 
-class _EditAddContactScreenState extends State<EditAddContactScreen> {
+class _EditContactScreenState extends State<EditContactScreen> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -63,9 +67,9 @@ class _EditAddContactScreenState extends State<EditAddContactScreen> {
                                   fit: BoxFit.fill,
                                 ),
                               )
-                            : Image.asset(
-                                Constants.imageAssets('profile.png'),
-                                fit: BoxFit.cover,
+                            : Image.network(
+                                widget.contactModel.img.toString(),
+                                fit: BoxFit.fill,
                               ),
                       ),
                       Padding(
@@ -95,30 +99,45 @@ class _EditAddContactScreenState extends State<EditAddContactScreen> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            GestureDetector(
-                              onTap: () {
-                                value.startAddContactDetails(context);
-                              },
-                              child: Icon(
-                                Icons.save_outlined,
-                                color: Color.fromARGB(255, 0, 0, 0),
-                                size: 35,
+                            Container(
+                              color: Color.fromARGB(255, 26, 25, 25)
+                                  .withOpacity(0.8),
+                              child: GestureDetector(
+                                onTap: () {
+                                  value.updateContact(context);
+                                },
+                                child: Icon(
+                                  Icons.save_outlined,
+                                  color: Color.fromARGB(255, 255, 255, 255),
+                                  size: 35,
+                                ),
                               ),
                             ),
-                            GestureDetector(
-                              onTap: (() {
-                                value.aboutController.clear();
-                                value.ageController.clear();
-                                value.nameController.clear();
-                                value.ratingController.clear();
-                                value.dateController.clear();
-                                value.noticesController.clear();
-                                value.genderController.clear();
-                              }),
-                              child: Icon(
-                                Icons.delete_outlined,
-                                color: Color.fromARGB(255, 0, 0, 0),
-                                size: 35,
+                            Container(
+                              color: Color.fromARGB(255, 26, 25, 25)
+                                  .withOpacity(0.8),
+                              child: GestureDetector(
+                                onTap: (() {
+                                  ContactController()
+                                      .deleteContact(widget.contactModel.id)
+                                      .whenComplete(() {
+                                    CustomAwesomDialog().dialogBox(
+                                        context,
+                                        "Success...!",
+                                        "Congratulations...! Successfully Deleted.",
+                                        DialogType.SUCCES);
+
+                                    Future.delayed(Duration(seconds: 5), () {
+                                      UtilFunctions.pushRemoveNavigator(
+                                          context, HomeScreen());
+                                    });
+                                  });
+                                }),
+                                child: Icon(
+                                  Icons.delete_outlined,
+                                  color: Color.fromARGB(255, 255, 255, 255),
+                                  size: 35,
+                                ),
                               ),
                             ),
                           ],
@@ -132,7 +151,7 @@ class _EditAddContactScreenState extends State<EditAddContactScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 LeftContaner(
-                                  text: "Name",
+                                  text: widget.contactModel.name.toString(),
                                   width: 250,
                                   controller: value.nameController,
                                 ),
@@ -148,13 +167,13 @@ class _EditAddContactScreenState extends State<EditAddContactScreen> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 LeftContaner(
-                                  text: "Gender : ♂",
+                                  text: widget.contactModel.gender.toString(),
                                   width: 200,
                                   controller: value.genderController,
                                 ),
                                 SizedBox(width: 10),
                                 CenterContaner(
-                                  text: "Age : __",
+                                  text: widget.contactModel.age.toString(),
                                   width: 140,
                                   controller: value.ageController,
                                 )
@@ -166,12 +185,12 @@ class _EditAddContactScreenState extends State<EditAddContactScreen> {
                               children: [
                                 SizedBox(),
                                 CenterContaner(
-                                  text: "Add date",
+                                  text: widget.contactModel.date.toString(),
                                   width: 180,
                                   controller: value.dateController,
                                 ),
                                 RightContaner(
-                                  text: "Add rating",
+                                  text: widget.contactModel.rating.toString(),
                                   width: 145,
                                   controller: value.ratingController,
                                 ),
@@ -183,7 +202,7 @@ class _EditAddContactScreenState extends State<EditAddContactScreen> {
                               children: [
                                 SizedBox(),
                                 LeftContaner(
-                                  text: "Add Notices",
+                                  text: widget.contactModel.notices.toString(),
                                   height: 110,
                                   width: size.width - 150,
                                   controller: value.noticesController,
@@ -203,13 +222,24 @@ class _EditAddContactScreenState extends State<EditAddContactScreen> {
                                         child: IconButton(
                                       icon: Icon(Icons.delete),
                                       onPressed: () {
-                                        value.aboutController.clear();
-                                        value.ageController.clear();
-                                        value.nameController.clear();
-                                        value.ratingController.clear();
-                                        value.dateController.clear();
-                                        value.noticesController.clear();
-                                        value.genderController.clear();
+                                        //value.deleteContactDetails(context);
+                                        ContactController()
+                                            .deleteContact(
+                                                widget.contactModel.id)
+                                            .whenComplete(() {
+                                          CustomAwesomDialog().dialogBox(
+                                              context,
+                                              "Success...!",
+                                              "Congratulations...! Successfully Deleted.",
+                                              DialogType.SUCCES);
+
+                                          Future.delayed(Duration(seconds: 5),
+                                              () {
+                                            UtilFunctions.pushRemoveNavigator(
+                                                context, HomeScreen());
+                                          });
+                                        });
+                                        ;
                                       },
                                     )),
                                   ),
@@ -219,17 +249,22 @@ class _EditAddContactScreenState extends State<EditAddContactScreen> {
                             SizedBox(
                               height: 8,
                             ),
-                            Container(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 20),
-                              height: 50,
-                              width: 300,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(50),
-                              ),
+                            GestureDetector(
+                              onTap: () {
+                                value.cleardata();
+                              },
                               child: Container(
-                                child: Center(child: Text('Add Another')),
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 20),
+                                height: 50,
+                                width: 300,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(50),
+                                ),
+                                child: Container(
+                                  child: Center(child: Text('Add Another')),
+                                ),
                               ),
                             )
                           ],
@@ -240,7 +275,7 @@ class _EditAddContactScreenState extends State<EditAddContactScreen> {
                   BottomContaner(
                     height: 120,
                     width: size.width - 10,
-                    text: "Hear can come notes about this peron general",
+                    text: widget.contactModel.about.toString(),
                     controller: value.aboutController,
                   ),
                 ],
