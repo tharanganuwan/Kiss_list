@@ -12,6 +12,8 @@ import 'package:kiss_list/utills/util_functions.dart';
 import 'package:kiss_list/widget/widget.dart';
 import 'package:provider/provider.dart';
 
+const List<String> list = <String>['Male  ♂', 'Female  ♀', 'Other  ♂♀'];
+
 class AddContactScreen extends StatefulWidget {
   AddContactScreen({
     Key? key,
@@ -22,6 +24,7 @@ class AddContactScreen extends StatefulWidget {
 }
 
 class _AddContactScreenState extends State<AddContactScreen> {
+  String dropdownValue = list.first;
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -150,17 +153,52 @@ class _AddContactScreenState extends State<AddContactScreen> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
+                                // Container(
+                                //     padding: const EdgeInsets.symmetric(
+                                //         horizontal: 20),
+                                //     width: 200,
+                                //     decoration: BoxDecoration(
+                                //         color: Colors.white,
+                                //         borderRadius: BorderRadius.horizontal(
+                                //             right: Radius.circular(50))),
+                                //     child: Container(
+                                //       width: 100,
+                                //       child: DropdownButton<String>(
+                                //         value: dropdownValue,
+                                //         icon: const Icon(Icons.arrow_drop_down),
+                                //         elevation: 16,
+                                //         iconSize: 20,
+                                //         isExpanded: true,
+                                //         style: const TextStyle(
+                                //             fontSize: 25,
+                                //             color:
+                                //                 Color.fromARGB(255, 0, 0, 1)),
+                                //         onChanged: (String? value) {
+                                //           // This is called when the user selects an item.
+                                //           setState(() {
+                                //             dropdownValue = value!;
+                                //           });
+                                //         },
+                                //         items: list
+                                //             .map<DropdownMenuItem<String>>(
+                                //                 (String value) {
+                                //           return DropdownMenuItem<String>(
+                                //               value: value, child: Text(value));
+                                //         }).toList(),
+                                //       ),
+                                //     )
                                 LeftContaner(
-                                  text: "Gender",
+                                  text: "Gender ♂♀",
                                   width: 200,
                                   controller: value.genderController,
                                 ),
+
                                 SizedBox(width: 10),
                                 CenterContaner(
                                   text: "Age",
                                   width: 140,
                                   controller: value.ageController,
-                                )
+                                ),
                               ],
                             ),
                             SizedBox(height: 30),
@@ -254,41 +292,6 @@ class _AddContactScreenState extends State<AddContactScreen> {
                 ],
               ),
             ),
-            // Column(
-            //   children: [
-            //     CustomTextFeild(
-            //       controller: value.nameController,
-            //       hint: 'name',
-            //     ),
-            //     CustomTextFeild(
-            //         controller: value.genderController, hint: 'gender'),
-            //     CustomTextFeild(
-            //       controller: value.ageController,
-            //       hint: 'age',
-            //     ),
-            //     CustomTextFeild(
-            //       controller: value.dateController,
-            //       hint: 'date',
-            //     ),
-            //     CustomTextFeild(
-            //       controller: value.aboutController,
-            //       hint: 'about',
-            //     ),
-            //     CustomTextFeild(
-            //       controller: value.noticesController,
-            //       hint: 'notices',
-            //     ),
-            //     CustomTextFeild(
-            //       controller: value.ratingController,
-            //       hint: 'rating',
-            //     ),
-            //     CustomButton(
-            //         name: "submit",
-            //         onPress: () {
-            //           value.startAddContactDetails(context);
-            //         })
-            //   ],
-            // )
           ],
         );
       }),

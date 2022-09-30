@@ -32,7 +32,7 @@ class ContactModel {
     img = map['img'];
   }
 
-  Map toJson() => {
+  Map toMap() => {
         'id': id,
         'name': name,
         'gender': gender,
