@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:kiss_list/model/contact_model.dart';
-import 'package:kiss_list/screens/edit_add_contct_screen.dart';
+
 import 'package:kiss_list/screens/home_screen.dart';
 import 'package:kiss_list/utills/constants.dart';
 import 'package:kiss_list/widget/widget.dart';
@@ -10,6 +10,7 @@ import 'package:kiss_list/widget/widget_view.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/contact_provider.dart';
+import 'edit_contct_screen.dart';
 
 class ViewContactScreen extends StatefulWidget {
   const ViewContactScreen({
@@ -50,7 +51,10 @@ class _ViewContactScreenState extends State<ViewContactScreen> {
                   SizedBox(
                       width: size.width,
                       height: 300,
-                      child: Image.network(widget.contactModel.img.toString())),
+                      child: Image.network(
+                        widget.contactModel.img.toString(),
+                        fit: BoxFit.fill,
+                      )),
                   Padding(
                     padding: const EdgeInsets.only(
                       top: 25,
@@ -60,34 +64,44 @@ class _ViewContactScreenState extends State<ViewContactScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const HomeScreen(),
-                              ),
-                            );
-                          },
-                          child: Icon(
-                            Icons.home_outlined,
-                            color: Color.fromARGB(255, 0, 0, 0),
-                            size: 35,
+                        Container(
+                          color:
+                              Color.fromARGB(255, 26, 25, 25).withOpacity(0.5),
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const HomeScreen(),
+                                ),
+                              );
+                            },
+                            child: Icon(
+                              Icons.home_outlined,
+                              color: Color.fromARGB(255, 255, 255, 255),
+                              size: 35,
+                            ),
                           ),
                         ),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => EditAddContactScreen(),
-                              ),
-                            );
-                          },
-                          child: Icon(
-                            Icons.mode_edit_outlined,
-                            color: Color.fromARGB(255, 0, 0, 0),
-                            size: 35,
+                        Container(
+                          color:
+                              Color.fromARGB(255, 26, 25, 25).withOpacity(0.8),
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => EditContactScreen(
+                                    contactModel: widget.contactModel,
+                                  ),
+                                ),
+                              );
+                            },
+                            child: Icon(
+                              Icons.mode_edit_outlined,
+                              color: Color.fromARGB(255, 255, 255, 255),
+                              size: 35,
+                            ),
                           ),
                         ),
                       ],

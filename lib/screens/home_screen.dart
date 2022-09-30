@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:kiss_list/components/custom_textFeild.dart';
 import 'package:kiss_list/controllers/contact_controller.dart';
 import 'package:kiss_list/model/contact_model.dart';
-import 'package:kiss_list/screens/edit_add_contct_screen.dart';
+
 import 'package:kiss_list/screens/settings.dart';
 import 'package:kiss_list/screens/view_contact_screen.dart';
-import 'package:kiss_list/utills/constants.dart';
-import 'package:logger/logger.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/contact_provider.dart';
+import 'add_contct_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -67,7 +63,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => EditAddContactScreen(),
+                              builder: (context) => AddContactScreen(),
                             ),
                           );
                         },
@@ -79,12 +75,12 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          // Navigator.push(
-                          //   context,
-                          //   MaterialPageRoute(
-                          //     builder: (context) => const Settings(),
-                          //   ),
-                          // );
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const Settings(),
+                            ),
+                          );
                         },
                         child: Icon(
                           Icons.settings,
@@ -108,31 +104,38 @@ class _HomeScreenState extends State<HomeScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           SizedBox(),
-                          // SizedBox(
-                          //   width: 200,
-                          //   child: TextField(
-                          //     textAlign: TextAlign.center,
-                          //     style: TextStyle(
-                          //         fontSize: 16, fontWeight: FontWeight.bold),
-                          //     decoration: InputDecoration(
-                          //       prefixIcon: Icon(Icons.search),
-                          //       fillColor: Colors.white,
-                          //       filled: true,
-                          //       hintText: "Search",
-                          //       border: OutlineInputBorder(
-                          //           borderSide: BorderSide.none,
-                          //           borderRadius: BorderRadius.circular(15)),
-                          //       // focusedBorder: OutlineInputBorder(
-                          //       //     borderSide: BorderSide(color: Colors.black),
-                          //       //     borderRadius: BorderRadius.circular(15)),
-                          //     ),
+                          SizedBox(
+                            width: 200,
+                            child: TextField(
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.bold),
+                              decoration: InputDecoration(
+                                //prefixIcon: widget,
+                                fillColor: Colors.white,
+                                filled: true,
+                                hintText: "Search",
+                                border: OutlineInputBorder(
+                                    borderSide: BorderSide.none,
+                                    borderRadius: BorderRadius.circular(15)),
+                                // focusedBorder: OutlineInputBorder(
+                                //     borderSide: BorderSide(color: Colors.black),
+                                //     borderRadius: BorderRadius.circular(15)),
+                              ),
+                            ),
+                          ),
+                          // Text(
+                          //   "Search",
+                          //   style: TextStyle(
+                          //     fontSize: 25,
+                          //     fontWeight: FontWeight.bold,
                           //   ),
                           // ),
-                          // Icon(
-                          //   Icons.search,
-                          //   color: Colors.black,
-                          //   size: 35,
-                          // ),
+                          Icon(
+                            Icons.search,
+                            color: Colors.black,
+                            size: 35,
+                          ),
                         ],
                       ),
                     ),
@@ -172,6 +175,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               return ContactCard(
                                 size: size,
                                 model: snapshot.data![index],
+                                num: snapshot.data!.length - index,
                               );
                             },
                           );
@@ -202,9 +206,11 @@ class ContactCard extends StatelessWidget {
     Key? key,
     required this.size,
     required this.model,
+    required this.num,
   }) : super(key: key);
 
   final Size size;
+  final int num;
   final ContactModel model;
   @override
   Widget build(BuildContext context) {
@@ -229,19 +235,21 @@ class ContactCard extends StatelessWidget {
           // mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             SizedBox(height: 20),
-            Container(
-              height: 300,
-              child: Image.network(fit: BoxFit.cover, model.img.toString()),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
+            ClipRRect(
+              child: Image.network(
+                fit: BoxFit.fill,
+                model.img.toString(),
+                height: 300,
+                width: size.width,
               ),
+              borderRadius: BorderRadius.circular(20),
             ),
             SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "1",
+                  (num).toString(),
                   style: TextStyle(
                     fontSize: 25,
                   ),
