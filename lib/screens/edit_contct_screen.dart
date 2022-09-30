@@ -102,7 +102,7 @@ class _EditContactScreenState extends State<EditContactScreen> {
                                   .withOpacity(0.8),
                               child: GestureDetector(
                                 onTap: () {
-                                  value.updateUser(context);
+                                  value.updateContact(context);
                                 },
                                 child: Icon(
                                   Icons.save_outlined,
@@ -213,13 +213,8 @@ class _EditContactScreenState extends State<EditContactScreen> {
                                         child: IconButton(
                                       icon: Icon(Icons.delete),
                                       onPressed: () {
-                                        value.aboutController.clear();
-                                        value.ageController.clear();
-                                        value.nameController.clear();
-                                        value.ratingController.clear();
-                                        value.dateController.clear();
-                                        value.noticesController.clear();
-                                        value.genderController.clear();
+                                        ContactController().deleteContact(
+                                            widget.contactModel.id);
                                       },
                                     )),
                                   ),
