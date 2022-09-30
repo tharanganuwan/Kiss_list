@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kiss_list/controllers/contact_controller.dart';
 import 'package:kiss_list/model/contact_model.dart';
 import 'package:kiss_list/screens/edit_add_contct_screen.dart';
+import 'package:kiss_list/screens/settings.dart';
 import 'package:kiss_list/screens/view_contact_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -73,12 +74,12 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          // Navigator.push(
-                          //   context,
-                          //   MaterialPageRoute(
-                          //     builder: (context) => const Settings(),
-                          //   ),
-                          // );
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const Settings(),
+                            ),
+                          );
                         },
                         child: Icon(
                           Icons.settings,
