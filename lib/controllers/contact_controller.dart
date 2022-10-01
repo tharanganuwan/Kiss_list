@@ -98,6 +98,15 @@ class ContactController {
     return l;
   }
 
+  //update user address
+  Future<void> updateUser(ContactModel model) async {
+    return contactDetails
+        .doc(model.id)
+        .set(model.toMap())
+        .then((value) => Logger().i("User updated"))
+        .catchError((error) => Logger().i("Failed to updated user:$error"));
+  }
+
   // update user user details
   Future<void> updateContact(
     String name,
@@ -117,6 +126,7 @@ class ContactController {
     Logger().i(downloadUrl);
 
     String docId = contactDetails.doc().id;
+    Logger().i(docId);
 
     await contactDetails.doc(contactDetails.doc().id).set({
       'name': name,
