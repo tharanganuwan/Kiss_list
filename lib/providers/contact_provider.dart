@@ -57,6 +57,18 @@ class ContactProvider extends ChangeNotifier {
   //get password controller
   TextEditingController get ratingController => _rating;
 
+  bool get imageselect => _imageselected;
+
+  void setControllers(ContactModel modell) {
+    nameController.text = modell.name.toString();
+    ratingController.text = modell.rating.toString();
+    genderController.text = modell.gender.toString();
+    ageController.text = modell.age.toString();
+    dateController.text = modell.date.toString();
+    noticesController.text = modell.notices.toString();
+    aboutController.text = modell.about.toString();
+  }
+
   //change obscure state
   void changeObscure() {
     _isObscure = !_isObscure;
@@ -86,6 +98,7 @@ class ContactProvider extends ChangeNotifier {
     try {
       if (inputValidation()) {
         setLoading(true);
+
         await _contactController
             .saveContactDetails(
           _name.text,
@@ -96,6 +109,7 @@ class ContactProvider extends ChangeNotifier {
           _about.text,
           _rating.text,
           _image,
+          _imageselected,
         )
             .whenComplete(() {
           // UserProvider().fetchSingleUser(
@@ -128,6 +142,8 @@ class ContactProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  bool _imageselected = false;
+
 //function to pick image from gallery
   Future<void> selectImage() async {
     try {
@@ -135,8 +151,10 @@ class ContactProvider extends ChangeNotifier {
       final XFile? pickFile =
           await _picker.pickImage(source: ImageSource.gallery);
       if (pickFile != null) {
+        _imageselected = true;
         _image = File(pickFile.path);
         Logger().w(_image.path);
+
         notifyListeners();
       } else {
         Logger().e("No Image Selected");
@@ -161,11 +179,13 @@ class ContactProvider extends ChangeNotifier {
   // void setLoading([bool val = false]) {
   //   _isLoading = val;
   bool loding = false;
-  Future<void> updateContact(BuildContext context) async {
+  Future<void> updateContact(BuildContext context, String idd) async {
     loding = true;
+
     try {
-      _contactController
-          .updateContact(
+      await ContactController()
+          .updateContactt(
+        idd,
         _name.text,
         _gender.text,
         _age.text,
@@ -185,11 +205,13 @@ class ContactProvider extends ChangeNotifier {
 
         Future.delayed(Duration(seconds: 5), () {
           UtilFunctions.pushRemoveNavigator(context, HomeScreen());
+          cleardata();
         });
       });
       Logger().i(_name.text);
       notifyListeners();
     } catch (e) {
+      print(e.toString());
       CustomAwesomDialog().dialogBox(
           context, "Error!", "Please check fields.", DialogType.SUCCES);
     }
@@ -204,6 +226,7 @@ class ContactProvider extends ChangeNotifier {
     _about.clear();
     _rating.clear();
     _image = File("");
+    _imageselected = false;
   }
   // Future<void> deleteContactDetails(BuildContext context) async {
   //   try {

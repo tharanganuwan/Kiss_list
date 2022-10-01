@@ -2,14 +2,11 @@ import 'dart:ui';
 
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
-import 'package:kiss_list/components/custom_button.dart';
 import 'package:kiss_list/components/custom_dialog.dart';
-import 'package:kiss_list/components/custom_textFeild.dart';
 import 'package:kiss_list/controllers/contact_controller.dart';
 import 'package:kiss_list/model/contact_model.dart';
 import 'package:kiss_list/providers/contact_provider.dart';
 import 'package:kiss_list/screens/home_screen.dart';
-import 'package:kiss_list/utills/constants.dart';
 import 'package:kiss_list/utills/util_functions.dart';
 import 'package:kiss_list/widget/widget.dart';
 import 'package:provider/provider.dart';
@@ -24,7 +21,18 @@ class EditContactScreen extends StatefulWidget {
   State<EditContactScreen> createState() => _EditContactScreenState();
 }
 
+const List<String> list = <String>['Male  ♂', 'Female  ♀', 'Other  ♂♀'];
+
 class _EditContactScreenState extends State<EditContactScreen> {
+  String dropdownValue = list.first;
+  @override
+  void initState() {
+    Provider.of<ContactProvider>(context, listen: false)
+        .setControllers(widget.contactModel);
+    // TODO: implement initState
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -67,10 +75,15 @@ class _EditContactScreenState extends State<EditContactScreen> {
                                   fit: BoxFit.fill,
                                 ),
                               )
-                            : Image.network(
-                                widget.contactModel.img.toString(),
-                                fit: BoxFit.fill,
-                              ),
+                            : (widget.contactModel.img == null)
+                                ? Image.asset(
+                                    "assets/images/profile.png",
+                                    fit: BoxFit.fill,
+                                  )
+                                : Image.network(
+                                    widget.contactModel.img.toString(),
+                                    fit: BoxFit.fill,
+                                  ),
                       ),
                       Padding(
                         padding: const EdgeInsets.only(top: 140),
@@ -104,7 +117,8 @@ class _EditContactScreenState extends State<EditContactScreen> {
                                   .withOpacity(0.8),
                               child: GestureDetector(
                                 onTap: () {
-                                  value.updateContact(context);
+                                  value.updateContact(
+                                      context, widget.contactModel.id);
                                 },
                                 child: Icon(
                                   Icons.save_outlined,
@@ -166,11 +180,47 @@ class _EditContactScreenState extends State<EditContactScreen> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                LeftContaner(
-                                  text: widget.contactModel.gender.toString(),
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 20),
                                   width: 200,
-                                  controller: value.genderController,
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.horizontal(
+                                          right: Radius.circular(50))),
+                                  child: Container(
+                                    width: 100,
+                                    child: DropdownButton<String>(
+                                      value: value.genderController.text
+                                          .toString(),
+                                      // icon: const Icon(Icons.arrow_drop_down),
+                                      //elevation: 16,
+                                      iconSize: 20,
+                                      isExpanded: true,
+                                      style: const TextStyle(
+                                          fontSize: 25,
+                                          color: Color.fromARGB(255, 0, 0, 1)),
+                                      onChanged: (String? value2) {
+                                        // This is called when the user selects an item.
+                                        setState(() {
+                                          dropdownValue = value2!;
+                                          value.genderController.text =
+                                              value2.toString();
+                                        });
+                                      },
+                                      items: list.map<DropdownMenuItem<String>>(
+                                          (String value) {
+                                        return DropdownMenuItem<String>(
+                                            value: value, child: Text(value));
+                                      }).toList(),
+                                    ),
+                                  ),
                                 ),
+                                // LeftContaner(
+                                //   text: widget.contactModel.gender.toString(),
+                                //   width: 200,
+                                //   controller: value.genderController,
+                                // ),
                                 SizedBox(width: 10),
                                 CenterContaner(
                                   text: widget.contactModel.age.toString(),

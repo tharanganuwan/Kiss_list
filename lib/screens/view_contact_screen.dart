@@ -51,10 +51,15 @@ class _ViewContactScreenState extends State<ViewContactScreen> {
                   SizedBox(
                       width: size.width,
                       height: 300,
-                      child: Image.network(
-                        widget.contactModel.img.toString(),
-                        fit: BoxFit.fill,
-                      )),
+                      child: (widget.contactModel.img == null)
+                          ? Image.asset(
+                              "assets/images/profile.png",
+                              fit: BoxFit.fill,
+                            )
+                          : Image.network(
+                              widget.contactModel.img.toString(),
+                              fit: BoxFit.fill,
+                            )),
                   Padding(
                     padding: const EdgeInsets.only(
                       top: 25,

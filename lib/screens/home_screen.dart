@@ -216,7 +216,7 @@ class ContactCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20),
-      height: 400,
+      height: (model.img == null) ? 90 : 400,
       width: size.width,
       decoration: BoxDecoration(
         color: Colors.white,
@@ -235,15 +235,17 @@ class ContactCard extends StatelessWidget {
           // mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             SizedBox(height: 20),
-            ClipRRect(
-              child: Image.network(
-                fit: BoxFit.fill,
-                model.img.toString(),
-                height: 300,
-                width: size.width,
-              ),
-              borderRadius: BorderRadius.circular(20),
-            ),
+            (model.img == null)
+                ? SizedBox()
+                : ClipRRect(
+                    child: Image.network(
+                      fit: BoxFit.fill,
+                      model.img.toString(),
+                      height: 300,
+                      width: size.width,
+                    ),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
             SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -260,11 +262,32 @@ class ContactCard extends StatelessWidget {
                     fontSize: 25,
                   ),
                 ),
-                Icon(
-                  Icons.male,
-                  color: Colors.black,
-                  size: 35,
-                ),
+                (model.gender == "Male  ♂")
+                    ? Icon(
+                        Icons.male,
+                        color: Colors.black,
+                        size: 35,
+                      )
+                    : (model.gender == "Female  ♀")
+                        ? Icon(
+                            Icons.female,
+                            color: Colors.black,
+                            size: 35,
+                          )
+                        : Row(
+                            children: [
+                              Icon(
+                                Icons.male,
+                                color: Colors.black,
+                                size: 35,
+                              ),
+                              Icon(
+                                Icons.female_outlined,
+                                color: Colors.black,
+                                size: 35,
+                              ),
+                            ],
+                          ),
               ],
             ),
           ],

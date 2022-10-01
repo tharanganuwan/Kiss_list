@@ -22,35 +22,52 @@ class ContactController {
   //save user contact information
 
   Future<void> saveContactDetails(
-      String name,
-      String gender,
-      String age,
-      String date,
-      String notices,
-      String about,
-      String rating,
-      File img) async {
+    String name,
+    String gender,
+    String age,
+    String date,
+    String notices,
+    String about,
+    String rating,
+    File img,
+    bool a,
+  ) async {
+    if (a) {
+      UploadTask? task = uploadFile(img);
+      final snapshot = await task!.whenComplete(() {});
+      final downloadUrl = await snapshot.ref.getDownloadURL();
+      Logger().i(downloadUrl);
+
+      //get the unique document id auto genrator
+      String docId = contactDetails.doc().id;
+
+      await contactDetails.doc(docId).set({
+        'name': name,
+        'gender': (gender == "") ? "Male  ♂" : gender,
+        'age': age,
+        'date': date,
+        'notices': notices,
+        'about': about,
+        'rating': rating,
+        'img': downloadUrl,
+        'id': docId
+      });
+    } else {
+      String docId = contactDetails.doc().id;
+
+      await contactDetails.doc(docId).set({
+        'name': name,
+        'gender': (gender == "") ? "Male  ♂" : gender,
+        'age': age,
+        'date': date,
+        'notices': notices,
+        'about': about,
+        'rating': rating,
+        'id': docId
+      });
+    }
+
     //upload the image task
-
-    UploadTask? task = uploadFile(img);
-    final snapshot = await task!.whenComplete(() {});
-    final downloadUrl = await snapshot.ref.getDownloadURL();
-    Logger().i(downloadUrl);
-
-    //get the unique document id auto genrator
-    String docId = contactDetails.doc().id;
-
-    await contactDetails.doc(docId).set({
-      'name': name,
-      'gender': gender,
-      'age': age,
-      'date': date,
-      'notices': notices,
-      'about': about,
-      'rating': rating,
-      'img': downloadUrl,
-      'id': docId
-    });
   }
 
   // uplod image to db
@@ -108,7 +125,8 @@ class ContactController {
   }
 
   // update user user details
-  Future<void> updateContact(
+  Future<void> updateContactt(
+    String id,
     String name,
     String gender,
     String age,
@@ -116,31 +134,50 @@ class ContactController {
     String notices,
     String about,
     String rating,
-    File img,
+    File? img,
   ) async {
+    print("=======================================================");
+    print(img == null);
     //upload the image task
 
-    UploadTask? task = uploadFile(img);
-    final snapshot = await task!.whenComplete(() {});
-    final downloadUrl = await snapshot.ref.getDownloadURL();
-    Logger().i(downloadUrl);
+    if (img == null) {
+      UploadTask? task = uploadFile(img!);
+      final snapshot = await task!.whenComplete(() {});
+      final downloadUrl = await snapshot.ref.getDownloadURL();
+      Logger().i(downloadUrl);
 
-    String docId = contactDetails.doc().id;
-    Logger().i(docId);
+      String docId = contactDetails.doc().id;
+      Logger().i(docId);
 
-    await contactDetails.doc(contactDetails.doc().id).set({
-      'name': name,
-      'gender': gender,
-      'age': age,
-      'date': date,
-      'notices': notices,
-      'about': about,
-      'rating': rating,
-      'img': downloadUrl
-    }).then((value) {
-      print("user update sussessful!");
-      // ContactProvider().setImage(downloadUrl.toString(), model);
-    }).catchError((error) => print("Failed to update: $error"));
+      await contactDetails.doc(id).set({
+        'id': id,
+        'name': name,
+        'gender': gender,
+        'age': age,
+        'date': date,
+        'notices': notices,
+        'about': about,
+        'rating': rating,
+        'img': downloadUrl
+      }).then((value) {
+        print("user update sussessful!");
+        // ContactProvider().setImage(downloadUrl.toString(), model);
+      }).catchError((error) => print("Failed to update: $error"));
+    } else {
+      await contactDetails.doc(id).update({
+        'id': id,
+        'name': name,
+        'gender': gender,
+        'age': age,
+        'date': date,
+        'notices': notices,
+        'about': about,
+        'rating': rating,
+      }).then((value) {
+        print("user update sussessful!");
+        // ContactProvider().setImage(downloadUrl.toString(), model);
+      }).catchError((error) => print("Failed to update: $error"));
+    }
   }
 
   //get user data
